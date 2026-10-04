@@ -44,7 +44,7 @@ Wszystkie grupy łączą się 17 czerwca na Jasnej Górze i **18 czerwca 2026** 
 1. **Wielowarstwowa Interaktywna Mapa (Leaflet.js):**
    - **Warstwa Topograficzna:** Precyzyjne ukształtowanie terenu Jury (OpenTopoMap).
    - **Warstwa Satelitarna:** Zdjęcia lotnicze wysokiej rozdzielczości (Esri World Imagery).
-   - **Warstwa Terenowa & Nocna:** Klasyczne drogi i kontrastowy Dark Mode.
+   - **Warstwa Terenowa & Drogi:** Klasyczna siatka dróg, ścieżek i szlaków (OpenStreetMap).
 2. **Kompleksowa Baza Noclegowa:**
    - Pola namiotowe i biwakowe (m.in. Główne Błonia Namiotowe w Ojcowie na Dzień Ojca, Mirów, Ogrodzieniec, Oleńka w Częstochowie).
    - Szkoły i hale gimnastyczne (Klucze, Złoty Potok, Ojców/Skała).
