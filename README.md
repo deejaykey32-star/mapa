@@ -64,6 +64,14 @@ Wszystkie grupy łączą się 17 czerwca na Jasnej Górze i **18 czerwca 2026** 
 
 ---
 
+## 🌐 Dostęp Online (Produkcja)
+
+- **Oficjalna Domena:** 👉 **[https://mapa.widokinaraj.pl](https://mapa.widokinaraj.pl)**
+- **Cloudflare Pages:** 👉 **[https://mapa-aon.pages.dev](https://mapa-aon.pages.dev)**
+- **Repozytorium GitHub:** 👉 **[https://github.com/deejaykey32-star/mapa](https://github.com/deejaykey32-star/mapa)**
+
+---
+
 ## 🚀 Uruchomienie Lokalne
 
 Aplikacja jest statyczną aplikacją webową napisaną w HTML5/CSS3/Vanilla JS (ES Modules) i bibliotece Leaflet.
@@ -74,3 +82,4 @@ python -m http.server 8080
 ```
 Następnie otwórz przeglądarkę pod adresem:
 `http://localhost:8080/`
+
