@@ -576,13 +576,28 @@ class PilgrimageApp {
   /* -------------------------------------------------------------------------
      NOCLEGI (ACCOMMODATIONS)
      ------------------------------------------------------------------------- */
-  renderAccommodations() {
+  renderAccommodations(searchQuery = '') {
     const listContainer = document.getElementById('lodging-list-container');
     listContainer.innerHTML = '';
 
-    const filtered = this.activeLodgingFilter === 'all'
+    let filtered = this.activeLodgingFilter === 'all'
       ? ACCOMMODATIONS
       : ACCOMMODATIONS.filter(a => a.type === this.activeLodgingFilter);
+
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase().trim();
+      filtered = filtered.filter(a => 
+        a.name.toLowerCase().includes(q) ||
+        a.location.toLowerCase().includes(q) ||
+        a.description.toLowerCase().includes(q) ||
+        a.typeLabel.toLowerCase().includes(q)
+      );
+    }
+
+    if (filtered.length === 0) {
+      listContainer.innerHTML = '<div style="font-size: 12px; color: var(--text-muted); padding: 12px; text-align: center;">Nie znaleziono noclegów pasujących do wyszukiwania.</div>';
+      return;
+    }
 
     filtered.forEach(acc => {
       const card = document.createElement('div');
@@ -1013,14 +1028,127 @@ class PilgrimageApp {
       chatInput.value = '';
     };
 
-    document.getElementById('live-chat-send').addEventListener('click', sendChat);
-    chatInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') sendChat();
-    });
+    // Lodging Live Search
+    const searchInput = document.getElementById('lodging-search-input');
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        this.renderAccommodations(e.target.value);
+      });
+    }
+
+    // Geolocation FAB
+    const geoBtn = document.getElementById('btn-geolocation');
+    if (geoBtn) {
+      geoBtn.addEventListener('click', () => {
+        this.locateUser();
+      });
+    }
+
+    // Jasna Góra Bells Audio FAB
+    const bellsBtn = document.getElementById('btn-audio-bells');
+    if (bellsBtn) {
+      bellsBtn.addEventListener('click', () => {
+        this.playPilgrimBells();
+      });
+    }
+
+    // Fullscreen FAB
+    const fsBtn = document.getElementById('btn-fullscreen');
+    if (fsBtn) {
+      fsBtn.addEventListener('click', () => {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        } else {
+          document.exitFullscreen().catch(() => {});
+        }
+      });
+    }
+  }
+
+  /* -------------------------------------------------------------------------
+     GEOLOCATION & AUDIO SYNTHESIS
+     ------------------------------------------------------------------------- */
+  locateUser() {
+    if (!navigator.geolocation) {
+      alert('Geolokalizacja nie jest wspierana przez Twoją przeglądarkę.');
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude, accuracy } = position.coords;
+        if (this.userGpsMarker) {
+          this.map.removeLayer(this.userGpsMarker);
+        }
+
+        const gpsIcon = L.divIcon({
+          className: 'user-gps-marker',
+          html: `
+            <div class="gps-dot"></div>
+            <div class="gps-ring"></div>
+          `,
+          iconSize: [20, 20],
+          iconAnchor: [10, 10]
+        });
+
+        this.userGpsMarker = L.marker([latitude, longitude], { icon: gpsIcon }).addTo(this.map);
+        this.map.flyTo([latitude, longitude], 14, { duration: 1.2 });
+        this.userGpsMarker.bindPopup(`
+          <div style="font-family: var(--font-main);">
+            <strong style="color: #3b82f6;"><i class="fa-solid fa-person-walking"></i> Twoja Pozycja na Szlaku</strong>
+            <p style="font-size: 11px; color: #475569; margin-top: 4px;">Dokładność: ok. ${Math.round(accuracy)} metrów</p>
+          </div>
+        `).openPopup();
+      },
+      () => {
+        // Symulacja pozycji pielgrzyma na wypadek odmowy uprawnień (np. na Wałach Jasnej Góry)
+        this.map.flyTo([50.8122, 19.0975], 14, { duration: 1.2 });
+        L.popup()
+          .setLatLng([50.8122, 19.0975])
+          .setContent('<strong style="font-family: var(--font-main);">Jasna Góra – Start Szlaku Zjednoczonego</strong>')
+          .openOn(this.map);
+      },
+      { enableHighAccuracy: true, timeout: 8000 }
+    );
+  }
+
+  playPilgrimBells() {
+    // Generowanie uroczystego akordu dzwonów sakralnych za pomocą Web Audio API
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      const ctx = new AudioCtx();
+      const frequencies = [261.63, 329.63, 392.00, 523.25]; // C4, E4, G4, C5 (Czysty akord C-dur)
+
+      frequencies.forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+
+        gain.gain.setValueAtTime(0.2, ctx.currentTime + idx * 0.4);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 3.5 + idx * 0.4);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start(ctx.currentTime + idx * 0.4);
+        osc.stop(ctx.currentTime + 4.5);
+      });
+
+      const bellsBtn = document.getElementById('btn-audio-bells');
+      bellsBtn.classList.add('active');
+      setTimeout(() => bellsBtn.classList.remove('active'), 4000);
+    } catch {
+      // audio fallback
+    }
   }
 }
 
-// Global initialization
+// Global initialization & Service Worker
 window.addEventListener('DOMContentLoaded', () => {
   window.app = new PilgrimageApp();
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js').catch(() => {});
+  }
 });

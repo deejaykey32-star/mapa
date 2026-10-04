@@ -19,6 +19,10 @@
   
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="styles.css">
+  
+  <!-- Progressive Web App Manifest -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#f59e0b">
 </head>
 <body>
 
@@ -160,6 +164,11 @@
             </div>
           </div>
 
+          <div class="lodging-search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="lodging-search-input" placeholder="Wyszukaj nocleg (np. Ojców, szkoła, namioty, Bobolice)...">
+          </div>
+
           <div class="lodging-list" id="lodging-list-container">
             <!-- Injected by app.js -->
           </div>
@@ -219,6 +228,22 @@
         <button class="layer-pill" data-layer="sat"><i class="fa-solid fa-satellite"></i> Satelitarna</button>
         <button class="layer-pill" data-layer="street"><i class="fa-solid fa-map-location-dot"></i> Teren / Drogi</button>
         <button class="layer-pill" data-layer="dark"><i class="fa-solid fa-moon"></i> Tryb Nocny</button>
+      </div>
+
+      <!-- Floating Map Action Buttons (GPS, Audio, Fullscreen) -->
+      <div class="map-fab-bar">
+        <button class="map-fab-btn" id="btn-geolocation" title="Moja Lokalizacja GPS na Szlaku">
+          <i class="fa-solid fa-location-crosshairs"></i>
+          <span class="fab-tooltip">Zlokalizuj mnie</span>
+        </button>
+        <button class="map-fab-btn" id="btn-audio-bells" title="Dzwony Jasnogórskie i Czas Modlitwy">
+          <i class="fa-solid fa-bell"></i>
+          <span class="fab-tooltip">Dzwony Jasnej Góry</span>
+        </button>
+        <button class="map-fab-btn" id="btn-fullscreen" title="Tryb Pełnoekranowy Mapy">
+          <i class="fa-solid fa-expand"></i>
+          <span class="fab-tooltip">Pełny Ekran</span>
+        </button>
       </div>
 
       <!-- Quick Floating Status HUD -->

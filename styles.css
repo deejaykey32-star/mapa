@@ -1829,3 +1829,130 @@ html, body {
     height: 240px;
   }
 }
+
+/* Lodging Search Input Box */
+.lodging-search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  padding: 8px 14px;
+  margin-top: 4px;
+  transition: all var(--transition-fast);
+}
+
+.lodging-search-box:focus-within {
+  border-color: var(--gold-light);
+  box-shadow: 0 0 12px var(--gold-glow);
+}
+
+.lodging-search-box i {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.lodging-search-box input {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 12px;
+  font-family: var(--font-main);
+  width: 100%;
+  outline: none;
+}
+
+/* Floating FAB Action Buttons on Map */
+.map-fab-bar {
+  position: absolute;
+  top: 76px;
+  right: 18px;
+  z-index: 800;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.map-fab-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--bg-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-md);
+  position: relative;
+}
+
+.map-fab-btn:hover {
+  background: var(--gold-primary);
+  color: #000;
+  transform: scale(1.08);
+  box-shadow: var(--shadow-gold);
+}
+
+.map-fab-btn.active {
+  background: var(--sacred-crimson);
+  color: #fff;
+  border-color: #f87171;
+  box-shadow: 0 0 16px rgba(239, 68, 68, 0.4);
+}
+
+.fab-tooltip {
+  position: absolute;
+  right: 50px;
+  background: rgba(10, 15, 29, 0.9);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateX(8px);
+  transition: all var(--transition-fast);
+  border: 1px solid var(--border-subtle);
+}
+
+.map-fab-btn:hover .fab-tooltip {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* GPS User Marker on Map */
+.user-gps-marker {
+  position: relative;
+}
+
+.gps-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #3b82f6;
+  border: 3px solid #ffffff;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.8);
+}
+
+.gps-ring {
+  position: absolute;
+  inset: -10px;
+  border-radius: 50%;
+  border: 2px solid #60a5fa;
+  animation: gpsPulse 2s infinite;
+}
+
+@keyframes gpsPulse {
+  0% { transform: scale(0.6); opacity: 1; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
