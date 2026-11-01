@@ -1,4 +1,4 @@
-# Wielka Pielgrzymka Gwiaździsta 2026 & Szlak Orlich Gniazd
+# Trynitarna Pielgrzymka Gwiaździsta & Szlak Orlich Gniazd
 
 Interaktywna platforma multimedialno-geograficzna obsługująca 3-etapową Pielgrzymkę Gwiaździstą z całego świata do Częstochowy, wspólny marsz Szlakiem Orlich Gniazd do Sanktuarium Bożego Miłosierdzia w Krakowie-Łagiewnikach oraz Rozesłanie (Missio).
 

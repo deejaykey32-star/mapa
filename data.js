@@ -1,4 +1,4 @@
-// Baza danych Pielgrzymki Gwiaździstej i Szlaku Orlich Gniazd 2026
+// Baza danych Trynitarnej Pielgrzymki Gwiaździstej i Szlaku Orlich Gniazd
 
 export const PILGRIMAGE_STAGES = {
   STAGE_1: {

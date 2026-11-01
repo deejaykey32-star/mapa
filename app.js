@@ -1,4 +1,4 @@
-// Główna logika aplikacji Pielgrzymki Gwiaździstej i Szlaku Orlich Gniazd 2026
+// Główna logika aplikacji Trynitarnej Pielgrzymki Gwiaździstej i Szlaku Orlich Gniazd
 import {
   PILGRIMAGE_STAGES,
   STAR_RAYS,
@@ -1260,7 +1260,7 @@ class PilgrimageApp {
     if (box) { box.style.background = '#dc2626'; }
 
     const lectorScript = `
-Witaj na szlaku Wielkiej Pielgrzymki Gwiaździstej i Szlaku Orlich Gniazd. 
+Witaj na szlaku Trynitarnej Pielgrzymki Gwiaździstej i Szlaku Orlich Gniazd. 
 
 Oto przewodnik po niezwykłej drodze serca, braterstwa i duchowej odnowy.
 

@@ -1,4 +1,4 @@
-// Service Worker dla Pielgrzymki Gwiaździstej 2026
+// Service Worker dla Trynitarnej Pielgrzymki Gwiaździstej
 const CACHE_NAME = 'pilgrimage-v1-cache';
 const STATIC_ASSETS = [
   './',
